@@ -3,6 +3,10 @@
 *.zip
 *.txt
 
+# VScode config
+jsconfig.json
+defs
+
 # Logs
 logs
 *.log

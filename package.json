@@ -1,0 +1,24 @@
+{
+  "name": "fallfromthecliff",
+  "version": "1.0.0",
+  "description": "see readme",
+  "main": " ",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server -c-1 -p 8081"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThomasSeaver/FallFromTheCliff.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ThomasSeaver/FallFromTheCliff/issues"
+  },
+  "homepage": "https://github.com/ThomasSeaver/FallFromTheCliff#readme",
+  "dependencies": {
+    "http-server": "^0.12.3",
+    "phaser": "^3.23.0"
+  }
+}
