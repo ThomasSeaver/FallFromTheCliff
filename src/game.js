@@ -2,7 +2,7 @@ var config = {
     width: 1280,
     height: 720,
     backgroundColor: 0x000000,
-    scene: [SceneCard, Conversation, BeachScene]
+    scene: [Loader, SceneCard, Conversation, Beach]
 }
 
 var game = new Phaser.Game(config)
@@ -15,10 +15,6 @@ const gs = {
     centerY: config.height / 2
 }
 // SCENECARD LOADER sc
-const sc = {
-    text:      "DAY 1",
-    time:      5000,
-    nextScene: "BeachScene"
-}
+const sc = {}
 // CONVERSATION LOADER c
 const c = {}
