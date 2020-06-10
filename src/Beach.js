@@ -7,27 +7,22 @@ class Beach extends Phaser.Scene {
         gs.input = this.input.keyboard.addKeys('W,S,A,D,up,down,left,right,E')
 		this.load.image("beachBG", "./assets/BeachBg.png")
 		this.load.image("playerAlive", "./assets/PlayerAlive.png")
-		var boundaries = [
-			{aX: 1280, aY: 336, bX: 1280, bY: 576, gatewayBoundary: false},
-			{aX: 1280, aY: 576, bX: 1081, bY: 543, gatewayBoundary: false},
-			{aX: 1081, aY: 543, bX: 943,  bY: 564, gatewayBoundary: false},
-			{aX: 943,  aY: 564, bX: 826,  bY: 615, gatewayBoundary: false},
-			{aX: 826,  aY: 615, bX: 727,  bY: 648, gatewayBoundary: false},
-			{aX: 727,  aY: 648, bX: 643,  bY: 648, gatewayBoundary: false},
-			{aX: 643,  aY: 648, bX: 520,  bY: 603, gatewayBoundary: false},
-			{aX: 520,  aY: 603, bX: 454,  bY: 531, gatewayBoundary: false},
-			{aX: 454,  aY: 531, bX: 439,  bY: 459, gatewayBoundary: false},
-			{aX: 439,  aY: 459, bX: 445,  bY: 390, gatewayBoundary: false},
-			{aX: 445,  aY: 390, bX: 469,  bY: 336, gatewayBoundary: false},
-			{aX: 469,  aY: 336, bX: 634,  bY: 336, gatewayBoundary: false},
-			{aX: 634,  aY: 336, bX: 757,  bY: 297, gatewayBoundary: false},
-			{aX: 757,  aY: 297, bX: 871,  bY: 297, gatewayBoundary: false},
-			{aX: 871,  aY: 297, bX: 910,  bY: 288, gatewayBoundary: false},
-			{aX: 910,  aY: 288, bX: 1063, bY: 303, gatewayBoundary: false},
-			{aX: 1063, aY: 303, bX: 1177, bY: 321, gatewayBoundary: false},
-			{aX: 1177, aY: 321, bX: 1280, bY: 336, gatewayBoundary: false}
+		this.vertices = [
+			{x: 484, y: 315},
+			{x: 439, y: 408},
+			{x: 439, y: 495},
+			{x: 469, y: 567},
+			{x: 568, y: 636},
+			{x: 712, y: 657},
+			{x: 1006, y: 546},
+			{x: 1147, y: 546},
+			{x: 1280, y: 576, gatewayVertex: true, gatewayScene: "SceneCard"},
+			{x: 1280, y: 324, gatewayVertex: true, gatewayScene: "SceneCard"},
+			{x: 937, y: 285},
+			{x: 730, y: 285},
+			{x: 604, y: 309}
 		]
-		gs.nav = new NavController(boundaries, gs.centerX, gs.centerY);
+		gs.nav = new NavController(this.vertices)
 	}
 
 	create() {
@@ -35,6 +30,13 @@ class Beach extends Phaser.Scene {
 		gs.player = this.add.sprite(gs.centerX, gs.centerY, "playerAlive")
 		gs.player.setOrigin(0.5, 0.8)
 		gs.circle = this.add.circle(gs.player.x, gs.player.y, 8, 0x0000ff)
+		for (var i = 0; i < this.vertices.length; i++) {
+			this.add.circle(this.vertices[i].x, this.vertices[i].y, 8, 0xff)
+			if (i > 0) {
+				this.add.line(0, 0, this.vertices[i].x, this.vertices[i].y, this.vertices[i - 1].x, this.vertices[i - 1].y, 0xff0000).setOrigin(0,0)
+			}
+		}
+		this.add.line(0, 0, this.vertices[0].x, this.vertices[0].y, this.vertices[this.vertices.length - 1].x, this.vertices[this.vertices.length - 1].y, 0xff0000).setOrigin(0,0)
 	}
 
 	update() {
@@ -56,15 +58,15 @@ class Beach extends Phaser.Scene {
 			console.log(gs.player.x + ' ' + gs.player.y)
 			this.add.circle(gs.player.x, gs.player.y, 8, 0xff0000)
 		}
-		if (newX != gs.player.x || newY != gs.playerY) {
-			var result = gs.nav.moveResult(newX, newY)
-			if (result == "notGate") {
-				gs.player.x = newX
-				gs.player.y = newY
-				gs.circle.x = gs.player.x
-				gs.circle.y = gs.player.y
-			} else if (result != false) {
-				this.scene.start(result)
+		if (newX != gs.player.x || newY != gs.player.y) {
+			var result = gs.nav.collisionCheck({x:gs.player.x, y:gs.player.y}, {x: newX, y: newY})
+			if (result.gateway) {
+				this.scene.start(result.newScene)
+			} else {
+				gs.player.x = result.x
+				gs.player.y = result.y
+				gs.circle.x = result.x
+				gs.circle.y = result.y
 			}
 		}
 	}
