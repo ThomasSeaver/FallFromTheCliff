@@ -21,20 +21,26 @@ class Conversation extends Phaser.Scene {
 	}
 
 	addMessage(event) {
-		if (this.convo.length >= 5) {
-			for (var i = 0; i < this.convo.length; i++) {
-				this.convo[i].y -= 142
-			}
-		}
-		this.convo.push(this.add.image(this.convoPosition.x, this.convoPosition.y, "textMessage"))
-		this.add.text(this.convo[this.convo.length - 1].x, this.convo[this.convo.length - 1].y, gs.curDialogue.convo[0].text)
-		if (this.convo.length < 5) {
-			this.convoPosition.y += 142
-		}
-		if (this.convoPosition.x == 530) {
-			this.convoPosition.x = 750
+		if (this.convo.length == gs.curDialogue.convo.length) {
+			this.scene.start(gs.curDialogue.meta.returnScene)
 		} else {
-			this.convoPosition.x = 530
+			if (this.convo.length >= 5) {
+				for (var i = 0; i < this.convo.length; i++) {
+					this.convo[i].box.y -= 142
+					this.convo[i].text.y -= 142
+				}
+			}
+			var newBox = this.add.image(this.convoPosition.x, this.convoPosition.y, "textMessage")
+			var newText = this.add.text(newBox.x, newBox.y, gs.curDialogue.convo[this.convo.length].text)
+			this.convo.push({box: newBox, text: newText})
+			if (this.convo.length < 5) {
+				this.convoPosition.y += 142
+			}
+			if (this.convoPosition.x == 530) {
+				this.convoPosition.x = 750
+			} else {
+				this.convoPosition.x = 530
+			}
 		}
 	}
 }

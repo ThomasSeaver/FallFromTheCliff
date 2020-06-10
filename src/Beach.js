@@ -43,7 +43,8 @@ class Beach extends Phaser.Scene {
 				participants: [
 					"Tom",
 					"John"
-				]
+				],
+				returnScene: "Beach"
 			},
 			convo: [
 				{
