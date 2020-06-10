@@ -6,17 +6,21 @@ class NavController {
     // Builds min/max x/y vals for bounding box check
     constructor(vertices) {
         this.vertices = vertices
-        
-        this.minX = this.vertices[0].x
-        this.maxX = this.vertices[0].x
-        this.minY = this.vertices[0].y
-        this.maxY = this.vertices[0].y
 
-        for (var i = 0; i < this.vertices.length; i++) {
-            this.minX = Math.min(this.vertices.x, this.minX) 
-            this.maxX = Math.max(this.vertices.x, this.maxX)
-            this.minY = Math.min(this.vertices.y, this.minY) 
-            this.maxY = Math.max(this.vertices.y, this.maxY)
+        if (this.vertices.length > 0) {
+            this.minX = this.vertices[0].x
+            this.maxX = this.vertices[0].x
+            this.minY = this.vertices[0].y
+            this.maxY = this.vertices[0].y
+
+            for (var i = 0; i < this.vertices.length; i++) {
+                this.minX = Math.min(this.vertices.x, this.minX) 
+                this.maxX = Math.max(this.vertices.x, this.maxX)
+                this.minY = Math.min(this.vertices.y, this.minY) 
+                this.maxY = Math.max(this.vertices.y, this.maxY)
+            }
+        } else {
+            console.log("Map has no vertices but a nav controller!")
         }
 
     }
@@ -102,7 +106,7 @@ class NavController {
                     // Check if boundary is gateway
                     if (this.vertices[i].gatewayVertex && this.vertices[(i + 1 == this.vertices.length ? 0 : i + 1)].gatewayVertex) {
                         // If so, mark gateway in result as positive and return with new scene info
-                        return {x: 0, y: 0, gateway: true, newScene: this.vertices[i].gatewayScene}
+                        return {x: 0, y: 0, gateway: true, newScene: this.vertices[i].gatewayScene, gatewayPos: this.vertices[i].afterPos}
                     } else {
                         // If not, we should calculate new movement vector
                         // Find Intercept point 
@@ -135,7 +139,6 @@ class NavController {
                             xVal = iX - xDelta
                             yVal = s2 * xVal + b2
                         }
-                        console.log(xVal + " " + yVal + " " + c.x + " " + c.y)
                         //return {x: xVal, y: yVal, gateway: false}
                         // TODO FIX broke dont know why cuz i dont get math
                         return {x: c.x, y: c.y, gateway: false}
