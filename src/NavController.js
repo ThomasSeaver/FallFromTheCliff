@@ -104,8 +104,40 @@ class NavController {
                         // If so, mark gateway in result as positive and return with new scene info
                         return {x: 0, y: 0, gateway: true, newScene: this.vertices[i].gatewayScene}
                     } else {
-                        // If not, we should calculate normal with surface to create new movement vector 
-                        // really annoying so I want to double check it first
+                        // If not, we should calculate new movement vector
+                        // Find Intercept point 
+                        var s1 = (c.y - d.y) / (c.x - d.x) 
+                        var b1 = c.y - s1 * c.x
+
+                        var s2 = (a.y - b.y) / (a.x - b.x)
+                        var b2 = a.y - s2 * a.x
+
+                        var iX = (b1 - b2) / (s2 - s1)
+                        var iY = s1 * iX + b1
+
+                        var boundaryTheta = Math.atan((a.y - iY) / (a.x - iX))
+                        var vectorTheta   = Math.atan((d.y - iY) / (d.x - iX))
+
+                        var thetaDelta = Math.max(boundaryTheta, vectorTheta) - Math.min(boundaryTheta, vectorTheta)
+
+                        var lineLength = Math.sqrt((a.y - iY) * (a.y - iY) + (a.x - iX) * (a.x - iX))
+
+                        var slideValue = Math.cos(thetaDelta) * lineLength
+
+                        // Now we have how far we need to project alone the line either way but must figure out which way 
+                        // If newPos.x > intercept.x, then project to the right, otherwise to the left
+                        var xDelta = Math.sqrt((slideValue * slideValue) / ((s2 * s2) + 1))
+                        var xVal, yVal
+                        if (d.x > iX) {
+                            xVal = iX + xDelta
+                            yVal = s2 * xVal + b2
+                        } else {
+                            xVal = iX - xDelta
+                            yVal = s2 * xVal + b2
+                        }
+                        console.log(xVal + " " + yVal + " " + c.x + " " + c.y)
+                        //return {x: xVal, y: yVal, gateway: false}
+                        // TODO FIX broke dont know why cuz i dont get math
                         return {x: c.x, y: c.y, gateway: false}
                     }
                 }

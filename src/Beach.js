@@ -16,8 +16,8 @@ class Beach extends Phaser.Scene {
 			{x: 712, y: 657},
 			{x: 1006, y: 546},
 			{x: 1147, y: 546},
-			{x: 1280, y: 576, gatewayVertex: true, gatewayScene: "SceneCard"},
-			{x: 1280, y: 324, gatewayVertex: true, gatewayScene: "SceneCard"},
+			{x: 1280, y: 576, gatewayVertex: true, gatewayScene: "Conversation"},
+			{x: 1280, y: 324, gatewayVertex: true, gatewayScene: "Conversation"},
 			{x: 937, y: 285},
 			{x: 730, y: 285},
 			{x: 604, y: 309}
@@ -37,6 +37,68 @@ class Beach extends Phaser.Scene {
 			}
 		}
 		this.add.line(0, 0, this.vertices[0].x, this.vertices[0].y, this.vertices[this.vertices.length - 1].x, this.vertices[this.vertices.length - 1].y, 0xff0000).setOrigin(0,0)
+
+		gs.testChat = {
+			meta: {
+				participants: [
+					"Tom",
+					"John"
+				]
+			},
+			convo: [
+				{
+					speaker: "Tom",
+					text: "Hey bitttttch",
+					side: "left"
+				},
+				{
+					speaker: "Tom",
+					text: "Hey bitttttch",
+					side: "left"
+				},
+				{
+					speaker: "Tom",
+					text: "Hey bitttttch",
+					side: "left"
+				},
+				{
+					speaker: "Tom",
+					text: "Hey bitttttch",
+					side: "left"
+				},
+				{
+					speaker: "Tom",
+					text: "Hey bitttttch",
+					side: "left"
+				},
+				{
+					speaker: "Tom",
+					text: "Hey bitttttch",
+					side: "left"
+				},
+				{
+					speaker: "Tom",
+					text: "Hey bitttttch",
+					side: "left"
+				},
+				{
+					speaker: "Tom",
+					text: "Hey bitttttch",
+					side: "left"
+				},
+				{
+					speaker: "Tom",
+					text: "Hey bitttttch",
+					side: "left"
+				},
+			]
+		}
+		gs.entities = []
+		gs.entities.push({image: this.add.circle(550, 500, 20, 0xff00ff), dialogueDone: false, dialogue: gs.testChat, inDialogueRadius: false})
+		gs.entities[0].dialogueImage = this.add.circle(gs.entities[0].image.x, gs.entities[0].image.y - 40, 10, 0)
+		gs.entities[0].dialogueImage.visible = false
+
+		gs.dialogueDistance = 30
 	}
 
 	update() {
@@ -55,8 +117,12 @@ class Beach extends Phaser.Scene {
 			newX -= 3
 		}
 		if (gs.input.E.isDown) {
-			console.log(gs.player.x + ' ' + gs.player.y)
-			this.add.circle(gs.player.x, gs.player.y, 8, 0xff0000)
+			for (var i = 0; i < gs.entities.length; i++) {
+				if (gs.entities[i].inDialogueRadius) {
+					gs.curDialogue = gs.entities[i].dialogue
+					this.scene.start("Conversation")
+				}
+			}
 		}
 		if (newX != gs.player.x || newY != gs.player.y) {
 			var result = gs.nav.collisionCheck({x:gs.player.x, y:gs.player.y}, {x: newX, y: newY})
@@ -69,5 +135,22 @@ class Beach extends Phaser.Scene {
 				gs.circle.y = result.y
 			}
 		}
+		
+		// Check for dialogue entities within certain radius
+		for (var i = 0; i < gs.entities.length; i++) {
+			if (!gs.entities[i].dialogueDone) {
+				if (!gs.entities[i].inDialogueRadius && this.distance({x: gs.player.x, y: gs.player.y}, {x: gs.entities[i].image.x, y: gs.entities[i].image.y}) < gs.dialogueDistance) {
+					gs.entities[i].dialogueImage.visible = true;
+					gs.entities[i].inDialogueRadius = true
+				} else if (gs.entities[i].inDialogueRadius && this.distance({x: gs.player.x, y: gs.player.y}, {x: gs.entities[i].image.x, y: gs.entities[i].image.y}) > gs.dialogueDistance) {
+					gs.entities[i].dialogueImage.visible = false;
+					gs.entities[i].inDialogueRadius = false
+				}
+			}
+		}
+	}
+
+	distance(a, b) {
+		return Math.sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y))
 	}
 }
