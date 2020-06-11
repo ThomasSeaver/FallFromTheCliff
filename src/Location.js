@@ -8,17 +8,26 @@ class Location extends Phaser.Scene {
 		// Pull in input and other scene specific variables like nav mesh verts 
 		// load assets
 		ss.vertices = ll.vertices
-        ss.keys = this.input.keyboard.addKeys('W,S,A,D,up,down,left,right,E')
+		ss.keys = this.input.keyboard.addKeys('W,S,A,D,up,down,left,right,E')
+		ss.entities = ll.entities
+
+		for (var i = 0; i < ss.entities.length; i++) {
+			this.load.image(ss.entities[i].name, "./assets/" + ss.entities[i].name + ".png")
+		}
 
 	}
 
 	create() {
 		// Draw BG or other 0th z level images
 		this.add.image(gs.centerX, gs.centerY, ll.sceneBG)
-		ss.entities = ll.entities
-		ss.entities.push({image: this.add.circle(550, 500, 20, 0xff00ff), dialogueDone: false, dialogue: gs.testChat, inDialogueRadius: false})
-		ss.entities[0].dialogueImage = this.add.circle(ss.entities[0].image.x, ss.entities[0].image.y - 40, 10, 0)
-		ss.entities[0].dialogueImage.visible = false
+
+		// Draw entities
+
+		for (var i = 0; i < ss.entities.length; i++) {
+			this.add.image(ss.entities[i].x, ss.entities[i].y, ss.entities[i].name)
+			ss.entities[i].dialogueIndicator = this.add.circle(ss.entities[i].x, ss.entities[i].y - 80, 10, 0)
+			ss.entities[i].dialogueIndicator.visible = false
+		}
 
 		// Player gets drawn on top
 		ss.player = this.add.sprite(ll.newScenePos.x, ll.newScenePos.y, "playerAlive")
@@ -31,12 +40,17 @@ class Location extends Phaser.Scene {
 
 	update() {
         // Every update poll the input and deal with resulting information
-        var result = ss.input.checkInput({x: ss.player.x, y: ss.player.y})
+		var result = ss.input.checkInput({x: ss.player.x, y: ss.player.y})
         if (result.transition) {
+			console.log(result)
             if (result.nextScene == "Conversation") {
-                gs.curDialogue = result.dialogue
-            }
-            loadScene(result.nextScene, result.nextPos, this)
+				cl.meta.returnScene = ll.sceneBG.substring(0, ll.sceneBG.length-2)
+				cl.meta.returnPos   = result.nextPos
+				cl.dialogue         = result.dialogue
+				this.scene.start("Conversation")
+            } else {
+				loadScene(result.nextScene, result.nextPos, this)
+			}
         }
         ss.player.x = result.nextPos.x
         ss.player.y = result.nextPos.y

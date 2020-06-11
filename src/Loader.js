@@ -13,10 +13,13 @@ class Loader extends Phaser.Scene {
 		this.load.image("CampBG", "./assets/Camp.png")
 		this.load.image("ExitBG", "./assets/Exit.png")
 		this.load.image("CliffBG", "./assets/Cliff.png")
-		this.load.image("playerAlive", "./assets/PlayerAlive.png")
+		this.load.image("playerAlive", "./assets/Purroit.png")
     }
 
     create() {
-        loadScene("Beach", {x: gs.centerX, y: gs.centerY}, this)
+        cl.meta.returnScene = "Beach"
+        cl.meta.returnPos   = {x: gs.centerX, y: gs.centerY}
+        cl.dialogue         = gs.dialogues.first
+        this.scene.start("Conversation")
     }
 }   

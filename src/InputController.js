@@ -2,11 +2,22 @@ class InputController {
     constructor(input, nav, entities) {
         this.input = input
         this.nav = nav
-        this.entities = entities
+        ss.entities = entities
     }
 
     // Handles Input and returns whether we're entering Conversation or NewScene or just moving player
     checkInput (playerPos) {
+		
+		// Check for dialogue entities within certain radius
+		for (var i = 0; i < ss.entities.length; i++) {
+			if (!ss.entities[i].inDialogueRadius && this.distance({x: playerPos.x, y: playerPos.y}, {x: ss.entities[i].x, y: ss.entities[i].y}) < 150) {
+				ss.entities[i].dialogueIndicator.visible = true;
+				ss.entities[i].inDialogueRadius = true
+			} else if (ss.entities[i].inDialogueRadius && this.distance({x: playerPos.x, y: playerPos.y}, {x: ss.entities[i].x, y: ss.entities[i].y}) > 150) {
+				ss.entities[i].dialogueIndicator.visible = false;
+				ss.entities[i].inDialogueRadius = false
+			}
+        }
         var newPos = {x: playerPos.x, y: playerPos.y}
 		if (this.input.W.isDown || this.input.up.isDown) {
 			newPos.y -= 3
@@ -21,9 +32,10 @@ class InputController {
 			newPos.x -= 3
 		}
 		if (this.input.E.isDown) {
-			for (var i = 0; i < this.entities.length; i++) {
-				if (this.entities[i].inDialogueRadius) {
-                    return {transition: true, nextScene: "Conversation", dialogue: this.entities[i].dialogue, nextPos: {x: playerPos.x, y: playerPos.y}}
+			console.log("x: " + playerPos.x + " y: " + playerPos.y)
+			for (var i = 0; i < ss.entities.length; i++) {
+				if (ss.entities[i].inDialogueRadius) {
+                    return {transition: true, nextScene: "Conversation", dialogue: ss.entities[i].dialogue, nextPos: {x: playerPos.x, y: playerPos.y}}
 				}
 			}
 		}
@@ -35,19 +47,6 @@ class InputController {
                 return {transition: false, nextPos: result}
 			}
 		}
-		
-		// Check for dialogue entities within certain radius
-		for (var i = 0; i < this.entities.length; i++) {
-			if (!this.entities[i].dialogueDone) {
-				if (!this.entities[i].inDialogueRadius && this.distance({x: playerPos.x, y: playerPos.y}, {x: this.entities[i].image.x, y: this.entities[i].image.y}) < 30) {
-					this.entities[i].dialogueImage.visible = true;
-					this.entities[i].inDialogueRadius = true
-				} else if (this.entities[i].inDialogueRadius && this.distance({x: playerPos.x, y: playerPos.y}, {x: this.entities[i].image.x, y: this.entities[i].image.y}) > 30) {
-					this.entities[i].dialogueImage.visible = false;
-					this.entities[i].inDialogueRadius = false
-				}
-			}
-        }
         return {transition: false, nextPos: playerPos}
     }
 
