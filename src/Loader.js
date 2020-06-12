@@ -34,10 +34,22 @@ class Loader extends Phaser.Scene {
         this.load.image("Purroit", "./assets/Purroit.png")
         this.load.image("Tara", "./assets/Tara.png")
         this.load.image("DecisionBox", "./assets/decisionBox.png")
+        this.load.audio("music", "./assets/music.mp3")
 
     }
 
     create() {
+        var musicConfig = {
+            mute: false,
+            volume: 0.3,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0
+        }
+        var music = this.sound.add("music", musicConfig)
+        music.play()
         cl.meta.returnScene = "Beach"
         cl.meta.returnPos   = {x: gs.centerX, y: gs.centerY}
         cl.entity           = {dialogues: [gs.dialogues.first], talkedTo: false}
