@@ -35,7 +35,7 @@ class InputController {
 			console.log("x: " + playerPos.x + " y: " + playerPos.y)
 			for (var i = 0; i < ss.entities.length; i++) {
 				if (ss.entities[i].inDialogueRadius) {
-                    return {transition: true, nextScene: "Conversation", dialogue: ss.entities[i].dialogue, nextPos: {x: playerPos.x, y: playerPos.y}}
+                    return {transition: true, nextScene: "Conversation", entity: ss.entities[i], nextPos: {x: playerPos.x, y: playerPos.y}}
 				}
 			}
 		}

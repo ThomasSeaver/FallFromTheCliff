@@ -13,13 +13,34 @@ class Loader extends Phaser.Scene {
 		this.load.image("CampBG", "./assets/Camp.png")
 		this.load.image("ExitBG", "./assets/Exit.png")
 		this.load.image("CliffBG", "./assets/Cliff.png")
-		this.load.image("playerAlive", "./assets/Purroit.png")
+        this.load.image("playerAlive", "./assets/Purroit.png")		
+		this.load.image("boxBG", "./assets/ce.png")	
+		this.load.image("DialogueIndicator", "./assets/dialogueIndicator.png")
+        this.load.image("dialogueBG", "./assets/tmc.png")
+        this.load.image("AlexBG", "./assets/tscAlex.png")
+        this.load.image("CopBG", "./assets/tscCop.png")
+        this.load.image("GeorgeBG", "./assets/tscGeorge.png")
+        this.load.image("JakeBG", "./assets/tscJake.png")
+        this.load.image("KatieBG", "./assets/tscKatie.png")
+        this.load.image("MoeBG", "./assets/tscMoe.png")
+        this.load.image("PurroitBG", "./assets/tscPurroit.png")
+        this.load.image("TaraBG", "./assets/tscTara.png")       
+        this.load.image("Alex", "./assets/Alex.png")
+        this.load.image("Cop", "./assets/Cop.png")
+        this.load.image("George", "./assets/George.png")
+        this.load.image("Jake", "./assets/Jake.png")
+        this.load.image("Katie", "./assets/Katie.png")
+        this.load.image("Moe", "./assets/Moe.png")
+        this.load.image("Purroit", "./assets/Purroit.png")
+        this.load.image("Tara", "./assets/Tara.png")
+        this.load.image("DecisionBox", "./assets/decisionBox.png")
+
     }
 
     create() {
         cl.meta.returnScene = "Beach"
         cl.meta.returnPos   = {x: gs.centerX, y: gs.centerY}
-        cl.dialogue         = gs.dialogues.first
+        cl.entity           = {dialogues: [gs.dialogues.first], talkedTo: false}
         this.scene.start("Conversation")
     }
 }   

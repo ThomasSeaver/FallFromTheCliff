@@ -10,11 +10,6 @@ class Location extends Phaser.Scene {
 		ss.vertices = ll.vertices
 		ss.keys = this.input.keyboard.addKeys('W,S,A,D,up,down,left,right,E')
 		ss.entities = ll.entities
-
-		for (var i = 0; i < ss.entities.length; i++) {
-			this.load.image(ss.entities[i].name, "./assets/" + ss.entities[i].name + ".png")
-		}
-
 	}
 
 	create() {
@@ -25,7 +20,7 @@ class Location extends Phaser.Scene {
 
 		for (var i = 0; i < ss.entities.length; i++) {
 			this.add.image(ss.entities[i].x, ss.entities[i].y, ss.entities[i].name)
-			ss.entities[i].dialogueIndicator = this.add.circle(ss.entities[i].x, ss.entities[i].y - 80, 10, 0)
+			ss.entities[i].dialogueIndicator = this.add.image(ss.entities[i].x, ss.entities[i].y - 80, "DialogueIndicator")
 			ss.entities[i].dialogueIndicator.visible = false
 		}
 
@@ -42,11 +37,10 @@ class Location extends Phaser.Scene {
         // Every update poll the input and deal with resulting information
 		var result = ss.input.checkInput({x: ss.player.x, y: ss.player.y})
         if (result.transition) {
-			console.log(result)
             if (result.nextScene == "Conversation") {
 				cl.meta.returnScene = ll.sceneBG.substring(0, ll.sceneBG.length-2)
 				cl.meta.returnPos   = result.nextPos
-				cl.dialogue         = result.dialogue
+				cl.entity           = result.entity
 				this.scene.start("Conversation")
             } else {
 				loadScene(result.nextScene, result.nextPos, this)

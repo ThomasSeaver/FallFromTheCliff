@@ -61,7 +61,8 @@ const gs = {
 				name: "Katie",
 				x: 550,
 				y: 550,
-				dialogue: {
+				talkedTo: false,
+				dialogues: [{
 					speakers: ["Katie", "Purroit"],
 					messages: [
 						{
@@ -125,7 +126,47 @@ const gs = {
 							text: "Thank you officer..."
 						}
 					]
-				}
+				}, 
+				{
+					speakers: ["Katie", "Purroit"],
+					messages: [
+						{
+							speaker: "Purroit",
+							side: "right",
+							text: "Excuse me, miss? We've come across a handkerchief monogrammed G.K. soaked in blood. Seems to be evidence. Do you happen to know anyone with those initials?"
+						},
+						{
+							speaker: "Katie",
+							side: "left",
+							text: "George's last name is King, but he couldn't've done this! He and Moe were out getting supplies!"
+						},
+						{
+							speaker: "Purroit",
+							side: "right",
+							text: "We know that, you all backed their alibis up pretty strongly when we arrived. Do you happen to know anyone else?"
+						},
+						{
+							speaker: "Katie",
+							side: "left",
+							text: "Um... No one on this trip... I suppose the only other person I know is Alex's boyfriend, Gerald Kant."
+						},
+						{
+							speaker: "Purroit",
+							side: "right",
+							text: "Her boyfriend's name is Gerald Kant? You're sure of that?"
+						},
+						{
+							speaker: "Katie",
+							side: "left",
+							text: "Yes, absolutely. But he's back home, there's no way he's involved."
+						},
+						{
+							speaker: "Purroit",
+							side: "right",
+							text: "Hmm. Thanks, you've been very helpful."
+						},
+					]
+				}]
 			}
 		]
     },
@@ -155,7 +196,8 @@ const gs = {
 				name: "George",
 				x: 720,
 				y: 590,
-				dialogue: {
+				talkedTo: false,
+				dialogues: [{
 					speakers: ["George", "Purroit"],
 					messages: [
 						{
@@ -199,7 +241,7 @@ const gs = {
 							text: "Alright. I'll take this for evidence. If you didn't have alibis everyone agreed with, this would be much more suspicious. Be careful during murder investigations, son."
 						},
 					]
-				}
+				}]
 			}
 		]
     },
@@ -222,7 +264,8 @@ const gs = {
 				name: "Alex",
 				x: 450,
 				y: 500,
-				dialogue: {
+				talkedTo: false,
+				dialogues: [{
 					speakers: ["Alex", "Purroit"],
 					messages: [
 						{
@@ -276,7 +319,37 @@ const gs = {
 							text: "I'll take that into consideration. Thanks for your assistance."
 						},
 					]
-				}
+				}, 
+				{
+					speakers: ["Alex", "Purroit"],
+					messages: [
+						{
+							speaker: "Alex",
+							side: "left",
+							text: "Excuse me, detective. Has anything come up?"
+						},
+						{
+							speaker: "Purroit",
+							side: "right",
+							text: "Not much yet, just taking interviews. Only think we've found so far is this bloody handkerchief monogrammed G.K.. Do you know anyone with those initials?"
+						},
+						{
+							speaker: "Alex",
+							side: "left",
+							text: "Oh, just George. I definitely can't think of anyone else I know besides George with those initials."
+						},
+						{
+							speaker: "Purroit",
+							side: "right",
+							text: "Well, lucky for him he has a pretty solid alibi your friends backed up when we got here. Seems that he's safe for now."
+						},
+						{
+							speaker: "Alex",
+							side: "left",
+							text: "Let me know if anything else comes up! I really hope it's not Tara..."
+						},
+					]
+				}]
 			}
 		]
     },
@@ -308,7 +381,8 @@ const gs = {
 				name: "Tara",
 				x: 376,
 				y: 321,
-				dialogue: {
+				talkedTo: false,
+				dialogues: [{
 					speakers: ["Tara", "Purroit"],
 					messages: [
 						{
@@ -337,10 +411,10 @@ const gs = {
 							text: "Katie was freaking out and calling the cops. I'm just glad you guys came as fast as you did... Alex started talking about how the knife went missing, and now my suit was covered in his blood, and everyone was looking at me... "
 						},
 						{
-							spekaer: "Tara",
+							speaker: "Tara",
 							side: "left",
 							text: "It was like they all thought I had killed him. I LOVED Jake, I could never have done that..."
-						}
+						},
 						{
 							speaker: "Purroit",
 							side: "right",
@@ -357,13 +431,59 @@ const gs = {
 							text: "I'll be back, so if you think of anything make sure to bring it up."
 						},
 					]
-				}
+				},
+				{
+					speakers: ["Tara", "Purroit"],
+					messages: [
+						{
+							speaker: "Purroit",
+							side: "right",
+							text: "Do you have any enemies, Tara?"
+						},
+						{
+							speaker: "Tara",
+							side: "left",
+							text: "Enemies? I don't think so... Me and Alex got in a bit of a fight over asking Jake out, but since we started planning the trip, she's been so much nicer to be around!"
+						},
+						{
+							speaker: "Tara",
+							side: "Left",
+							text: "I was gonna ask him out later today... It's so unfair..."
+						},
+						{
+							speaker: "Purroit",
+							side: "right",
+							text: "Any loss of life is wrong. Regardless, this one definitely seems suspicious. Between the swim suit and the knife, I would say you were the prime suspect, except..."
+						},
+						{
+							speaker: "Tara",
+							side: "left",
+							text: "Except what??"
+						},
+						{
+							speaker: "Purroit",
+							side: "right",
+							text: "Your finger prints are on the knife, but there's no blood. Clearly not the murder weapon, yet thrown with the body in an attempt to make it look like the murder weapon."
+						},
+						{
+							speaker: "Tara",
+							side: "left",
+							text: "What does this mean?"
+						},
+						{
+							speaker: "Purroit",
+							side: "right",
+							text: "Unless you're particularly stupid, or insanely brilliant, it's not you. Remain here, I expect to have this solved shortly."
+						},
+					]
+				}]
 			},
 			{
 				name: "Moe",
 				x: 970,
 				y: 300,
-				dialogue: {
+				talkedTo: false,
+				dialogues: [{
 					speakers: ["Moe", "Purroit"],
 					messages: [
 						{
@@ -407,7 +527,7 @@ const gs = {
 							text: "Hmmm. Okay, I'll be back."
 						},
 					]
-				}
+				}]
 			}
 		]
     },
@@ -435,7 +555,8 @@ const gs = {
 				name: "Cop",
 				x: 1175,
 				y: 435,
-				dialogue: {
+				talkedTo: false,
+				dialogues: [{
 					speakers: ["Cop", "Purroit"],
 					messages: [
 						{
@@ -469,7 +590,60 @@ const gs = {
 							text: "Please, call me John. Mr.Officer was my father."
 						},
 					]
-				}
+				},
+				{
+					speakers: ["Cop", "Purroit"],
+					messages: [
+						{
+							speaker: "Purroit",
+							side: "right",
+							text: "Say John, mind giving this a spin in the bloodometer for me?"
+						},
+						{
+							speaker: "Cop",
+							side: "left",
+							text: "Sure buddy."
+						},
+						{
+							speaker: "Cop",
+							side: "left",
+							text: "Well, this is definitely more of Jake's blood. Absolutely soaked too; if I had to guess someone tried to clean something off with this before realizing how futile that would be."
+						},
+						{
+							speaker: "Purroit",
+							side: "right",
+							text: "Interesting. I'll be back when I know who it is."
+						},
+						{
+							speaker: "Cop",
+							side: "left",
+							text: "Best damn detective we got."
+						}
+					]
+				},
+				{
+					speakers: ["Cop", "Purroit"],
+					messages: [
+						{
+							speaker: "Cop",
+							side: "left",
+							text: "You solved it yet buddy?"
+						},
+						{
+							speaker: "Purroit",
+							side: "right",
+							text: "Maybe."
+						},
+						{
+							speaker: "Cop",
+							side: "left",
+							text: "Well, who do you think it is?"
+						},
+						{
+							decisionButton: true
+						},
+					]
+				}]
 			}
 		]
 	},
@@ -568,6 +742,192 @@ const gs = {
 					text: "Don't worry about it too hard, just focus on getting used to being dead. We have detective work to do! First, we must question all your compatriots."
 				},
 			]
+		}, 
+		loss: {
+			speakers: ["Purroit", "Jake"],
+			messages: [
+				{
+					speaker: "Purroit",
+					side: "left",
+					text: "Soooo, bad news."
+				},
+				{
+					speaker: "Jake",
+					side: "right",
+					text: "I just got used to being dead, how bad can it be?"
+				},
+				{
+					speaker: "Purroit",
+					side: "left",
+					text: "I sorta may have fumbled the bag..."
+				},
+				{
+					speaker: "Jake",
+					side: "right",
+					text: "..."
+				},
+				{
+					speaker: "Purroit",
+					side: "left",
+					text: "I may or may not have arrested one of your friends who was immediately cleared by their lawyer and released."
+				},
+				{
+					speaker: "Jake",
+					side: "right",
+					text: "...even though they were guilty?"
+				},
+				{
+					speaker: "Purroit",
+					side: "left",
+					text: "I looked over his reasoning and it is pretty solid, the one I arrested is totally innocent."
+				},
+				{
+					speaker: "Jake",
+					side: "right",
+					text: "Wait, so you have no idea who did it?"
+				},
+				{
+					speaker: "Purroit",
+					side: "left",
+					text: "Well I might have a second idea, but..."
+				},
+				{
+					speaker: "Jake",
+					side: "right",
+					text: "What is it?"
+				},
+				{
+					speaker: "Purroit",
+					side: "left",
+					text: "After I arrested the wrong person, the rest of your friends sorta got scared about being arrested for murder and fled the country."
+				},
+				{
+					speaker: "Jake",
+					side: "right",
+					text: "So my murderer got away?"
+				},
+				{
+					speaker: "Purroit",
+					side: "left",
+					text: "Yep."
+				},
+				{
+					speaker: "Jake",
+					side: "right",
+					text: "..."
+				},
+				{
+					speaker: "Purroit",
+					side: "left",
+					text: "I simply would have asked for a human detective."
+				},
+				{
+					lossScreen: true
+				}
+			]
+		}, 
+		win: {
+			speakers: ["Purroit", "Jake"],
+			messages: [
+				{
+					speaker: "Purroit",
+					side: "left",
+					text: "So, good news!"
+				},
+				{
+					speaker: "Jake",
+					side: "right",
+					text: "How good can it be? I'm dead."
+				},
+				{
+					speaker: "Purroit",
+					side: "left",
+					text: "Don't be such a spoil sport. We got your murderer!"
+				},
+				{
+					speaker: "Jake",
+					side: "right",
+					text: "Is this when you tell me and I move on to the afterlife?"
+				},
+				{
+					speaker: "Purroit",
+					side: "left",
+					text: "Don't ask me hard questions, I'm not a ghostologist."
+				},
+				{
+					speaker: "Purroit",
+					side: "left",
+					text: "It was Alex!"
+				},
+				{
+					speaker: "Purroit",
+					side: "left",
+					text: "After some double checking by an actual competent detective, my reasoning appears to be correct!"
+				},
+				{
+					speaker: "Purroit",
+					side: "left",
+					text: "She went a little cuckoo after her and Tara had a fight about asking you out, which is a pretty mega compliment imo"
+				},
+				{
+					speaker: "Jake",
+					side: "right",
+					text: "...I'm dead."
+				},
+				{
+					speaker: "Purroit",
+					side: "left",
+					text: "Tomato Tomahto. Anyway, she decided to kill you since she couldn't have you, and frame Tara, for some nice dramatic irony."
+				},
+				{
+					speaker: "Purroit",
+					side: "left",
+					text: "It almost worked out, but she didn't cover her framing weapon in blood, and left the real murder weapon in her suitcase. Pretty meh murder if you ask me."
+				},
+				{
+					speaker: "Jake",
+					side: "right",
+					text: "So I got killed because she wanted to date me and Tara said she had dibs?"
+				},
+				{
+					speaker: "Purroit",
+					side: "left",
+					text: "You oughta choose your friends better. I don't really know if ghosts get friends, but this is an important lesson you have learned regardless."
+				},
+				{
+					speaker: "Jake",
+					side: "right",
+					text: "..."
+				},
+				{
+					speaker: "Purroit",
+					side: "left",
+					text: "You are such a sadsack."
+				},
+				{
+					speaker: "Jake",
+					side: "right",
+					text: "Do I move on now or something?"
+				},
+				{
+					speaker: "Purroit",
+					side: "left",
+					text: "My namebadge says DETECTIVE not GHOSTOMOLOGIST. Maybe you're destined to help me solve OTHER murders!"
+				},
+				{
+					speaker: "Jake",
+					side: "right",
+					text: "I think I'm gonna go haunt Alex in prison."
+				},
+				{
+					speaker: "Purroit",
+					side: "left",
+					text: "Welp. Ghost solved. Murder sent away. Another successful case by Detective Purroit!"
+				},
+				{
+					winScreen: true
+				}
+			]
 		}
 	}
 }
@@ -582,7 +942,7 @@ const cl = {
 	meta: {
 
 	},
-	dialogue: [
-
-	]
+	dialogue: {
+		
+	}
 }
